@@ -1350,8 +1350,6 @@ int mutt_index_menu(struct MuttWindow *dlg)
 
       op = km_dokey(MENU_MAIN);
 
-      mutt_debug(LL_DEBUG3, "[%d]: Got op %d\n", __LINE__, op);
-
       /* either user abort or timeout */
       if (op < 0)
       {
@@ -1360,6 +1358,8 @@ int mutt_index_menu(struct MuttWindow *dlg)
           mutt_window_clearline(MuttMessageWindow, 0);
         continue;
       }
+
+      mutt_debug(LL_DEBUG1, "Got op %s (%d)\n", OpStrings[op][0], op);
 
       mutt_curses_set_cursor(MUTT_CURSOR_VISIBLE);
 
@@ -2332,7 +2332,6 @@ int mutt_index_menu(struct MuttWindow *dlg)
       case OP_MAIN_WINDOWED_VFOLDER_BACKWARD:
         if (!prereq(Context, menu, CHECK_IN_MAILBOX))
           break;
-        mutt_debug(LL_DEBUG2, "OP_MAIN_WINDOWED_VFOLDER_BACKWARD\n");
         if (C_NmQueryWindowDuration <= 0)
         {
           mutt_message(_("Windowed queries disabled"));
